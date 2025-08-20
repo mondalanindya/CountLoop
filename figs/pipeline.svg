@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200" viewBox="0 0 800 200">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+  <rect x="20" y="50" width="200" height="100" rx="10" fill="#f5f5f5" stroke="#2c3e50" stroke-width="2"/>
+  <text x="120" y="115" font-size="18" text-anchor="middle" fill="#2c3e50">Layout Design</text>
+  <line x1="220" y1="100" x2="300" y2="100" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="300" y="50" width="200" height="100" rx="10" fill="#f5f5f5" stroke="#2c3e50" stroke-width="2"/>
+  <text x="400" y="115" font-size="18" text-anchor="middle" fill="#2c3e50">Design Critique</text>
+  <line x1="500" y1="100" x2="580" y2="100" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="580" y="50" width="200" height="100" rx="10" fill="#f5f5f5" stroke="#2c3e50" stroke-width="2"/>
+  <text x="680" y="115" font-size="18" text-anchor="middle" fill="#2c3e50">Image Generation</text>
+</svg>
