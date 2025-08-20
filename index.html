@@ -67,7 +67,7 @@
     <div class="container">
       <h3 class="center">Pipeline Overview</h3>
       <img src="figs/pipeline.png" alt="CountLoop Pipeline" style="display:block;width:70%;max-width:800px;height:auto;margin:1.5rem auto 1rem auto;box-shadow:0 4px 24px rgba(44,62,80,0.10);border-radius:14px;">
-      <p class="caption">CountLoop pipeline showing layout design, design critique, and layout-aware image generation.</p>
+      <p class="caption">Given a text prompt, the Layout Designer constructs a planning graph encoding object attributes and spatial relations, which is converted into a pixel-aligned layout. Guided by instance masks and cumulative latent composition with an IP-Adapter, the image is synthesized. A Design-Critic evaluates the result and updates the planning graph via an iterative feedback loop. This loop repeats until the count and quality goals are met.</p>
     </div>
   </section>
 
