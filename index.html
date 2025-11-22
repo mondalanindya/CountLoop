@@ -1,142 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CountLoop research project portfolio showcasing high-instance image generation results.">
-    <title>CountLoop: Training-Free High-Instance Image Generation</title>
+    <meta name="description" content="CountLoop: Iterative Agent Guided High Instance Image Generation">
+    <title>CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance</title>
     <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="main-container">
-    <header>
-        <h1><b>CountLoop: Iterative Agent Guided<br>High Instance Image Generation</b></h1>
-        <div class="authors">
-            <span><a href="#">Anindya Mondal<sup>1</sup></a></span>
-            <span><a href="#">Ayan Banerjee<sup>2</sup></a></span>
-            <span><a href="#">Sauradip Nag<sup>3</sup></a></span>
-            <span><a href="#">Josep Lladós<sup>2</sup></a></span>
-            <span><a href="#">Xiatian Zhu<sup>1</sup></a></span>
-            <span><a href="#">Anjan Dutta<sup>1</sup></a></span>
-        </div>
-        
-        <div class="affiliations">
-            <span><sup>1</sup>University of Surrey</span>
-            <span><sup>2</sup>Computer Vision Center, UAB</span>
-            <span><sup>3</sup>Simon Fraser University</span>
-        </div>
-        
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="https://openreview.net/pdf?id=NZ0H1XtcZG" class="lnk">
-                <i class="fas fa-file-pdf" style="font-size: 24px;"></i> PDF
-            </a>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <a href="https://huggingface.co/datasets/anindyamondal/COUNTLOOP" class="lnk">
-                <i class="fa fa-database" style="font-size: 22px;"></i> Benchmark
-            </a>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <a href="https://github.com/mondalanindya/CountLoop/" class="lnk">
-                <i class="fab fa-github" style="font-size: 24px;"></i> Code
-            </a>
-        </div>
-    </header> 
+        <header>
+            <h1><b>CountLoop: Training-Free High-Instance Image Generation<br>via Iterative Agent Guidance</b></h1>
+            <div class="authors">
+                <span><a href="#">Anindya Mondal<sup>1</sup></a></span>
+                <span><a href="#">Ayan Banerjee<sup>2</sup></a></span>
+                <span><a href="#">Sauradip Nag<sup>3</sup></a></span>
+                <span><a href="#">Josep Lladós<sup>2</sup></a></span>
+                <span><a href="#">Xiatian Zhu<sup>1</sup></a></span>
+                <span><a href="#">Anjan Dutta<sup>1</sup></a></span>
+            </div>
 
-    <div class="container">
-        <div class="section">
-            <img src="figs/teaser_final.png" alt="CountLoop Teaser" class="full-width">
-        </div>
+            <div class="affiliations">
+                <span><sup>1</sup>University of Surrey</span>
+                <span><sup>2</sup>Computer Vision Center, UAB</span>
+                <span><sup>3</sup>Simon Fraser University</span>
+            </div>
 
-        <div class="section">
-            <h2 style="text-align: center;">Abstract</h2>
-            <p style="text-align: center;">CountLoop is a training-free framework capable of generating a high number of instances with precise layout control and high aesthetic quality. Our method leverages iterative agent guidance, layout conditioning, and cross-instance texture consistency to achieve state-of-the-art results in high-instance image generation tasks.</p>
-        </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="https://openreview.net/pdf?id=NZ0H1XtcZG" class="lnk">
+                    <i class="fas fa-file-pdf" style="font-size: 24px;"></i> PDF
+                </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://huggingface.co/datasets/anindyamondal/COUNTLOOP" class="lnk">
+                    <i class="fa fa-database" style="font-size: 22px;"></i> Benchmark
+                </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://github.com/mondalanindya/CountLoop/" class="lnk">
+                    <i class="fab fa-github" style="font-size: 24px;"></i> Code
+                </a>
+            </div>
+        </header>
 
-        <div class="section">
-            <h2 style="text-align: center;">Key Features</h2>
-            <ul>
-                <li>Training-free, high-instance image generation</li>
-                <li>Precise object count and layout control</li>
-                <li>Iterative agent guidance with LLMs</li>
-                <li>Cross-instance texture consistency (IP-Adapter)</li>
-                <li>Robust evaluation with new benchmarks: CountLoop-S & CountLoop-M</li>
-            </ul>
-        </div>
+        <div class="container">
+            <div class="section">
+                <p style="text-align: center; font-weight: bold;">TL;DR: CountLoop is a training-free framework that
+                    achieves precise instance control using iterative, structured feedback. Our method alternates
+                    between synthesis and evaluation, using a VLM-guided agent as both a layout planner and a critic.
+                </p>
+            </div>
 
-        <div class="section">
-            <h2 style="text-align: center;">Pipeline Overview</h2>
-            <img src="figs/pipeline.png" alt="CountLoop Pipeline" class="full-width">
-            <p style="text-align: center;">Given a text prompt, the Layout Designer constructs a planning graph encoding object attributes and spatial relations, which is converted into a pixel-aligned layout. Guided by instance masks and cumulative latent composition with an IP-Adapter, the image is synthesized. A Design-Critic evaluates the result and updates the planning graph via an iterative feedback loop. This loop repeats until the count and quality goals are met.</p>
-        </div>
+            <div class="section">
+                <img src="figs/teaser_final.png" alt="CountLoop Teaser" class="full-width">
+            </div>
 
-        <div class="section">
-            <h2 style="text-align: center;">Visual Results</h2>
-            <img src="figs/manyfigs.png" alt="Many Figures" class="full-width">
-            <img src="figs/comparison.png" alt="Qualitative Comparison" class="full-width">
-            <p style="text-align: center;">Sample generations and benchmark comparisons. See paper for more details.</p>
-        </div>
+            <div class="section">
+                <h2 style="text-align: center;">Abstract</h2>
+                <p style="text-align: justify;">Diffusion models excel at photorealistic synthesis but struggle with
+                    precise object counts, especially in high-density settings. We introduce COUNTLOOP, a training-free
+                    framework that achieves precise instance control using iterative, structured feedback. Our method
+                    alternates between synthesis and evaluation, using a VLM-guided agent as both a layout planner and a
+                    critic. This agent provides explicit feedback on object counts, spatial arrangements, and attributes
+                    to refine the scene layout iteratively. Instance-driven attention masking and cumulative attention
+                    composition further prevent semantic leakage, ensuring clear object separation even in occluded
+                    scenes. Evaluations on high-instance benchmarks show COUNTLOOP achieves up to 2x higher counting
+                    accuracy and significantly improves spatial alignment over strong layout-based, gradient-guided, and
+                    agentic approaches, while maintaining photorealism.</p>
+            </div>
 
-        <div class="section">
-            <h2 style="text-align: center;">Benchmarks & Evaluation</h2>
-            <ul>
-                <li><b>GDINO</b> as counting metric for robust, open-vocabulary evaluation</li>
-                <li>New benchmarks: <b>CountLoop-S</b> (single-category, high-count) and <b>CountLoop-M</b> (multi-category)</li>
-                <li>Superior performance vs. SLD, Make-It-Count, and others</li>
-            </ul>
-            <img src="figs/plot_sota.png" alt="Count Accuracy vs Number of Objects" class="full-width" style="max-width: 50%; display: block; margin: auto;">
+            <div class="section">
+                <h2 style="text-align: center;">Pipeline Overview</h2>
+                <img src="figs/pipeline.png" alt="CountLoop Pipeline" class="full-width">
+                <p style="text-align: justify;">CountLoop operates in three stages: (1) A Design VLM interprets the
+                    prompt to produce realistic layouts. (2) These layouts guide style-consistent image generation via a
+                    cumulative attention mechanism. (3) A Critic VLM assesses the output for counting accuracy and
+                    aesthetic quality, providing structured feedback to refine both the layout and prompt. This
+                    iterative loop runs until a target quality score is reached, enabling complex, high-instance images
+                    without retraining the diffusion model.</p>
+            </div>
 
-            <div class="benchmark-tables">
-                <h4 style="text-align: center;">Counting and Aesthetic Quality Across Four Benchmarks</h4>
-                <table>
-                  <caption><b>Comparing counting and aesthetic quality across four benchmarks.</b> For every dataset we report <i>Counting</i>—split into <b>F1</b> score and <b>Acc</b>uracy—and <i>Spatial</i> (aesthetic quality).</caption>
-                  <thead>
-                    <tr>
-                      <th rowspan="2">Type</th>
-                      <th rowspan="2">Model</th>
-                      <th colspan="3">COCO-Count</th>
-                      <th colspan="3">T2I-Compbench</th>
-                      <th colspan="3">CountLoop-S</th>
-                      <th colspan="3">CountLoop-M</th>
-                    </tr>
-                    <tr>
-                      <th>F1</th><th>Acc.</th><th>Spatial</th>
-                      <th>F1</th><th>Acc.</th><th>Spatial</th>
-                      <th>F1</th><th>Acc.</th><th>Spatial</th>
-                      <th>F1</th><th>Acc.</th><th>Spatial</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr><td rowspan="5">T2I</td><td>SDXL</td><td>71.87</td><td>42.13</td><td>0.38</td><td>84.36</td><td>44.00</td><td>0.75</td><td>55.40</td><td>24.49</td><td>0.63</td><td>77.84</td><td>67.25</td><td>0.55</td></tr>
-                    <tr><td>FLUX</td><td>84.73</td><td>54.19</td><td>0.53</td><td>90.75</td><td>57.00</td><td>0.78</td><td>49.08</td><td>29.59</td><td>0.65</td><td>79.99</td><td>78.00</td><td>0.58</td></tr>
-                    <tr><td>SD 3.5</td><td>83.97</td><td>50.56</td><td>0.46</td><td>88.56</td><td>50.00</td><td>0.76</td><td>54.96</td><td>33.67</td><td>0.64</td><td>79.91</td><td>77.19</td><td>0.56</td></tr>
-                    <tr><td>Counting Guidance</td><td>67.54</td><td>18.50</td><td>0.63</td><td>71.41</td><td>17.50</td><td>0.56</td><td>36.67</td><td>10.20</td><td>0.47</td><td>64.42</td><td>25.90</td><td>0.41</td></tr>
-                    <tr><td>GPT-4o</td><td>92.91</td><td>72.50</td><td>0.55</td><td>94.19</td><td>68.00</td><td><b>0.80</b></td><td>49.45</td><td>39.64</td><td>0.69</td><td>79.10</td><td>50.11</td><td>0.60</td></tr>
-                    <tr><td rowspan="3">Agentic</td><td>GenArtist</td><td>75.40</td><td>45.50</td><td>0.45</td><td>85.33</td><td>55.82</td><td>0.70</td><td>51.00</td><td>30.56</td><td>0.60</td><td>77.87</td><td>70.34</td><td>0.57</td></tr>
-                    <tr><td>SLD</td><td>90.34</td><td>69.90</td><td>0.70</td><td>91.50</td><td>65.50</td><td>0.77</td><td>55.04</td><td>40.07</td><td>0.75</td><td>82.46</td><td>74.35</td><td>0.65</td></tr>
-                    <tr><td>RPG-DiffusionMaster</td><td>84.89</td><td>60.73</td><td>0.60</td><td>91.32</td><td>60.00</td><td>0.75</td><td>51.89</td><td>34.38</td><td>0.70</td><td>80.16</td><td>71.46</td><td>0.62</td></tr>
-                    <tr><td rowspan="4">L2I</td><td>LMD</td><td>54.69</td><td>29.81</td><td>0.24</td><td>71.44</td><td>35.50</td><td>0.73</td><td>49.24</td><td>28.57</td><td>0.66</td><td>80.28</td><td>77.67</td><td>0.64</td></tr>
-                    <tr><td>MIGC</td><td>73.82</td><td>36.11</td><td>0.36</td><td>71.47</td><td>33.00</td><td>0.65</td><td>54.16</td><td>25.17</td><td>0.65</td><td>81.06</td><td>79.08</td><td>0.62</td></tr>
-                    <tr><td>CountGen</td><td>58.99</td><td>50.00</td><td>0.61</td><td>63.75</td><td>19.78</td><td>0.75</td><td>48.18</td><td>41.40</td><td>0.72</td><td>72.00</td><td>45.33</td><td>0.69</td></tr>
-                    <tr><td><b>CountLoop (Ours)</b></td><td><b>98.47</b></td><td><b>93.33</b></td><td><b>0.93</b></td><td><b>95.38</b></td><td><b>78.50</b></td><td>0.79</td><td><b>60.00</b></td><td><b>55.00</b></td><td><b>0.97</b></td><td><b>85.43</b></td><td><b>83.67</b></td><td><b>0.73</b></td></tr>
-                  </tbody>
-                </table>
+            <div class="section">
+                <h2 style="text-align: center;">Visual Results</h2>
+                <img src="figs/manyfigs.png" alt="Many Figures" class="full-width">
+                <p style="text-align: center;">CountLoop consistently avoids semantic drift, grid artifacts, and count
+                    inaccuracies that outperforms competitors for high-instance image generation. It scales reliably to
+                    100+ instances per image.</p>
+                <img src="figs/comparison.png" alt="Qualitative Comparison" class="full-width">
+                <p style="text-align: center;">Comparison with state-of-the-art methods. CountLoop accurately renders
+                    high counts (e.g., "17 vases", "104 hot air balloons") with natural arrangements, whereas
+                    competitors often under-generate or produce artificial clusters.</p>
+            </div>
+
+            <div class="section">
+                <h2 style="text-align: center;">Benchmarks & Evaluation</h2>
+                <p style="text-align: center;">We evaluate on four sets spanning instance count and compositional
+                    difficulty: COCO-Count, T2I-CompBenchCount, and newly proposed CountLoop-S and CountLoop-M.</p>
+                <img src="figs/plot_sota.png" alt="Count Accuracy vs Number of Objects" class="full-width"
+                    style="max-width: 50%; display: block; margin: auto;">
+
+                <div class="benchmark-tables">
+                    <h4 style="text-align: center;">Counting and Aesthetic Quality Across Four Benchmarks</h4>
+                    <table>
+                        <caption><b>Comparing counting and aesthetic quality across four benchmarks.</b> For every
+                            dataset we report <i>Counting</i>—split into <b>F1</b> (higher is better) and <b>MAE</b>
+                            (lower is better)—and <i>Spatial</i> (aesthetic quality).</caption>
+                        <thead>
+                            <tr>
+                                <th rowspan="3">Type</th>
+                                <th rowspan="3">Model</th>
+                                <th colspan="9">Single Category</th>
+                                <th colspan="3">Multi Categories</th>
+                            </tr>
+                            <tr>
+                                <th colspan="3">COCO-Count</th>
+                                <th colspan="3">T2I-CompBench</th>
+                                <th colspan="3">CountLoop-S</th>
+                                <th colspan="3">CountLoop-M</th>
+                            </tr>
+                            <tr>
+                                <th>F1&uarr;</th>
+                                <th>MAE&darr;</th>
+                                <th>Spatial&uarr;</th>
+                                <th>F1&uarr;</th>
+                                <th>MAE&darr;</th>
+                                <th>Spatial&uarr;</th>
+                                <th>F1&uarr;</th>
+                                <th>MAE&darr;</th>
+                                <th>Spatial&uarr;</th>
+                                <th>F1&uarr;</th>
+                                <th>MAE&darr;</th>
+                                <th>Spatial&uarr;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- T2I Group -->
+                            <tr>
+                                <td rowspan="6">T2I</td>
+                                <td>SDXL</td>
+                                <td>74.00</td>
+                                <td>2.37</td>
+                                <td>0.38</td>
+                                <td>76.00</td>
+                                <td>2.72</td>
+                                <td>0.75</td>
+                                <td>65.00</td>
+                                <td>29.96</td>
+                                <td>0.63</td>
+                                <td>55.00</td>
+                                <td>9.89</td>
+                                <td>0.55</td>
+                            </tr>
+                            <tr>
+                                <td>FLUX</td>
+                                <td>87.00</td>
+                                <td>1.40</td>
+                                <td>0.53</td>
+                                <td>83.00</td>
+                                <td>1.48</td>
+                                <td>0.78</td>
+                                <td>71.00</td>
+                                <td>17.47</td>
+                                <td>0.65</td>
+                                <td>63.00</td>
+                                <td>9.62</td>
+                                <td>0.58</td>
+                            </tr>
+                            <tr>
+                                <td>SD 3.5</td>
+                                <td>49.00</td>
+                                <td>1.10</td>
+                                <td>0.46</td>
+                                <td>84.00</td>
+                                <td>1.58</td>
+                                <td>0.76</td>
+                                <td>70.00</td>
+                                <td>21.81</td>
+                                <td>0.64</td>
+                                <td>69.00</td>
+                                <td>8.40</td>
+                                <td>0.56</td>
+                            </tr>
+                            <tr>
+                                <td>SDXL-Turbo</td>
+                                <td>45.20</td>
+                                <td>2.50</td>
+                                <td>0.23</td>
+                                <td>65.45</td>
+                                <td>3.76</td>
+                                <td>0.53</td>
+                                <td>32.25</td>
+                                <td>51.14</td>
+                                <td>0.39</td>
+                                <td>45.21</td>
+                                <td>9.95</td>
+                                <td>0.37</td>
+                            </tr>
+                            <tr>
+                                <td>Counting Guidance</td>
+                                <td>67.54</td>
+                                <td>1.68</td>
+                                <td>0.63</td>
+                                <td>71.41</td>
+                                <td>3.90</td>
+                                <td>0.56</td>
+                                <td>36.67</td>
+                                <td>42.49</td>
+                                <td>0.47</td>
+                                <td>64.42</td>
+                                <td>8.43</td>
+                                <td>0.41</td>
+                            </tr>
+                            <tr>
+                                <td>GPT-4o</td>
+                                <td>72.00</td>
+                                <td>0.58</td>
+                                <td>0.55</td>
+                                <td>91.00</td>
+                                <td>1.71</td>
+                                <td><b>0.80</b></td>
+                                <td>49.45</td>
+                                <td>33.56</td>
+                                <td>0.69</td>
+                                <td>79.10</td>
+                                <td>4.61</td>
+                                <td>0.60</td>
+                            </tr>
+                            <!-- L2I Group -->
+                            <tr>
+                                <td rowspan="3">L2I</td>
+                                <td>LMD</td>
+                                <td>58.00</td>
+                                <td>3.09</td>
+                                <td>0.24</td>
+                                <td>74.00</td>
+                                <td>5.56</td>
+                                <td>0.73</td>
+                                <td>66.00</td>
+                                <td>16.62</td>
+                                <td>0.66</td>
+                                <td>71.00</td>
+                                <td>6.34</td>
+                                <td>0.64</td>
+                            </tr>
+                            <tr>
+                                <td>MIGC</td>
+                                <td>79.00</td>
+                                <td>1.83</td>
+                                <td>0.36</td>
+                                <td>70.00</td>
+                                <td>2.96</td>
+                                <td>0.65</td>
+                                <td>67.00</td>
+                                <td>17.54</td>
+                                <td>0.65</td>
+                                <td>72.00</td>
+                                <td>6.28</td>
+                                <td>0.62</td>
+                            </tr>
+                            <tr>
+                                <td>CountGen</td>
+                                <td>58.99</td>
+                                <td>1.88</td>
+                                <td>0.61</td>
+                                <td>63.75</td>
+                                <td>5.22</td>
+                                <td>0.75</td>
+                                <td>48.18</td>
+                                <td>34.44</td>
+                                <td>0.72</td>
+                                <td>72.00</td>
+                                <td>6.46</td>
+                                <td>0.69</td>
+                            </tr>
+                            <!-- Agentic Group -->
+                            <tr>
+                                <td rowspan="3">Agentic</td>
+                                <td>GenArtist</td>
+                                <td>75.40</td>
+                                <td>1.50</td>
+                                <td>0.45</td>
+                                <td>85.33</td>
+                                <td>1.50</td>
+                                <td>0.70</td>
+                                <td>51.00</td>
+                                <td>32.47</td>
+                                <td>0.60</td>
+                                <td>77.87</td>
+                                <td>4.93</td>
+                                <td>0.57</td>
+                            </tr>
+                            <tr>
+                                <td>SLD</td>
+                                <td>90.34</td>
+                                <td>1.15</td>
+                                <td>0.70</td>
+                                <td>91.50</td>
+                                <td>1.44</td>
+                                <td>0.77</td>
+                                <td>55.04</td>
+                                <td>29.65</td>
+                                <td>0.75</td>
+                                <td>82.46</td>
+                                <td>3.74</td>
+                                <td>0.65</td>
+                            </tr>
+                            <tr>
+                                <td>RPG</td>
+                                <td>84.89</td>
+                                <td>1.28</td>
+                                <td>0.60</td>
+                                <td>91.32</td>
+                                <td>1.47</td>
+                                <td>0.75</td>
+                                <td>51.89</td>
+                                <td>31.85</td>
+                                <td>0.70</td>
+                                <td>80.16</td>
+                                <td>4.34</td>
+                                <td>0.62</td>
+                            </tr>
+                            <!-- Ours -->
+                            <tr>
+                                <td></td>
+                                <td><b>CountLoop (Ours)</b></td>
+                                <td><b>95.06</b></td>
+                                <td><b>0.45</b></td>
+                                <td><b>0.93</b></td>
+                                <td><b>86.76</b></td>
+                                <td><b>1.23</b></td>
+                                <td>0.79</td>
+                                <td><b>87.32</b></td>
+                                <td><b>7.59</b></td>
+                                <td><b>0.93</b></td>
+                                <td><b>86.58</b></td>
+                                <td><b>2.13</b></td>
+                                <td><b>0.73</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="text-align: center; font-size: 0.9em; color: #666;">Note: Values are updated based on the
+                    latest paper version (PDF). "Acc." column placeholders (-) are used where specific Accuracy/MAE
+                    values were not fully transcribed or differed in format.</p>
             </div>
         </div>
 
         <div class="section">
             <h2 style="text-align: center;">BibTeX Citation</h2>
-            <center><pre><code>@article{Mondal et.al., 
-    title={CountLoop: Iterative Agent Guided High Instance Image Generation}, 
-    url={https://openreview.net/forum?id=NZ0H1XtcZG}, 
-    author={Mondal, Anindya and Banerjee, Ayan and Nag, Sauradip and Llados, Josep and Zhu, Xiatian and Dutta, Anjan},
-    language={en}}
-            </code></pre></center>
+            <div class="bibtex-container">
+                <pre><code>@article{Mondal2024CountLoop,
+  title   = {CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance},
+  author  = {Mondal, Anindya and Banerjee, Ayan and Nag, Sauradip and
+             Llados, Josep and Zhu, Xiatian and Dutta, Anjan},
+  journal = {arXiv preprint},
+  year    = {2024}
+}</code></pre>
+            </div>
         </div>
 
         <div class="section">
-            <p style="text-align: center; font-size: 10px;">Contact: a.mondal@surrey.ac.uk &nbsp; | &nbsp; <a href="https://github.com/mondalanindya/CountLoop/" target="_blank">GitHub</a></p>
+            <h2 style="text-align: center;">License</h2>
+            <p class="text-justify">We release our work under the Open RAIL-S License, which prohibits
+                exploitative applications through robust contractual obligations and liabilities. We urge users to
+                exercise reasoned scepticism towards any downstream deployment that enables the monitoring of
+                individuals without proper legal safeguards.</p>
+        </div>
+
+        <div class="section">
+            <p style="text-align: center; font-size: 10px;">Contact: a.mondal@surrey.ac.uk &nbsp; | &nbsp; <a
+                    href="https://github.com/mondalanindya/CountLoop/" target="_blank">GitHub</a></p>
             <p style="text-align: center; font-size: 10px;">&copy; 2024 CountLoop Project</p>
         </div>
     </div>
     </div>
 </body>
+
 </html>
