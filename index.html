@@ -1,156 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CountLoop research project portfolio showcasing high-instance image generation results.">
-  <title>CountLoop: Training-Free High-Instance Image Generation</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <nav class="navbar">
-    <div class="container">
-      <ul class="nav-links">
-        <li><a href="#abstract">Abstract</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#pipeline">Pipeline</a></li>
-        <li><a href="#figures">Results</a></li>
-        <li><a href="#benchmarks">Benchmarks</a></li>
-        <li><a href="#citation">Citation</a></li>
-      </ul>
-    </div>
-  </nav>
+body {
+    font-family: 'Google Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    color: #333;
+}
+.container, .content {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+.authors {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    padding-bottom: 20px;
+}
 
-  <header class="hero" id="top">
-    <div class="hero-content">
-      <h1>CountLoop</h1>
-      <h2>Iterative Agent Guided High Instance Image Generation</h2>
-      <div class="authors">
-        <span>Anindya Mondal<sup>1</sup>, Ayan Banerjee<sup>2</sup>, Sauradip Nag<sup>3</sup>, Josep Lladós<sup>2</sup>, Xiatian Zhu<sup>1</sup>, Anjan Dutta<sup>1</sup></span><br>
-        <span class="affil" style="color:#222;font-weight:500;"> <sup>1</sup> University of Surrey &nbsp; <sup>2</sup> Computer Vision Center, UAB &nbsp; <sup>3</sup> Simon Fraser University</span>
-      </div>
-      <div class="links">
-        <a href="https://openreview.net/pdf?id=NZ0H1XtcZG" class="btn">PDF</a>
-        <a href="https://huggingface.co/datasets/anindyamondal/COUNTLOOP" class="btn">Benchmark</a>
-        <a href="https://github.com/mondalanindya/CountLoop/" class="btn" target="_blank">Code</a>
-      </div>
-      <div class="teaser-full">
-        <img src="figs/teaser_final.png" alt="CountLoop Teaser" style="width:70%;max-width:700px;height:auto;display:block;margin:2.2rem auto 0 auto;box-shadow:0 4px 24px rgba(44,62,80,0.10);border-radius:18px;">
-      </div>
-    </div>
-  </header>
+.authors a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 10px;
+}
 
-  <section class="abstract" id="abstract">
-    <div class="container">
-      <h3 class="center">Abstract</h3>
-      <p>CountLoop is a training-free framework capable of generating a high number of instances with precise layout control and high aesthetic quality. Our method leverages iterative agent guidance, layout conditioning, and cross-instance texture consistency to achieve state-of-the-art results in high-instance image generation tasks.</p>
-    </div>
-  </section>
+.authors a:hover {
+    text-decoration: underline;
+}
+.teaser, .leaderboards, .abstract, .viz , .method, .benchmark, .bibtex, .license, .section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(130, 172, 240, 0.591);
+    margin-bottom: 20px;
+}
+.badges img {
+    margin-right: 5px;
+}
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+/* a:hover {
+    text-decoration: underline;
+} */
+img.full-width {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+.comparison-blocks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+.image-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+}
+.image-compare-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+.image-compare-container img, .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.overlay {
+    clip-path: inset(0 50% 0 0);
+}
+.slider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #ffffff;
+    cursor: ew-resize;
+    left: 50%;
+}
+.image-caption {
+    text-align: center;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+pre {
+    background-color: #007bff85;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 10px;
+    white-space: pre-wrap;
+    width: 80%;
+    text-align: left;
+    margin: auto;
+}
 
-  <section class="features" id="features">
-    <div class="container">
-      <h3 class="center">Key Features</h3>
-      <ul>
-        <li>Training-free, high-instance image generation</li>
-        <li>Precise object count and layout control</li>
-        <li>Iterative agent guidance with LLMs</li>
-        <li>Cross-instance texture consistency (IP-Adapter)</li>
-        <li>Robust evaluation with new benchmarks: CountLoop-S & CountLoop-M</li>
-      </ul>
-    </div>
-  </section>
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 20px;
+}
 
-  <section class="pipeline" id="pipeline">
-    <div class="container">
-      <h3 class="center">Pipeline Overview</h3>
-      <img src="figs/pipeline.png" alt="CountLoop Pipeline" style="display:block;width:70%;max-width:800px;height:auto;margin:1.5rem auto 1rem auto;box-shadow:0 4px 24px rgba(44,62,80,0.10);border-radius:14px;">
-      <p class="caption">Given a text prompt, the Layout Designer constructs a planning graph encoding object attributes and spatial relations, which is converted into a pixel-aligned layout. Guided by instance masks and cumulative latent composition with an IP-Adapter, the image is synthesized. A Design-Critic evaluates the result and updates the planning graph via an iterative feedback loop. This loop repeats until the count and quality goals are met.</p>
-    </div>
-  </section>
+.icon-width {
+    display: block;
+    width: 10%; /* Adjust this value to resize the image */
+    height: auto; /* This is to maintain the aspect ratio of the image */
+    margin: auto; /* This will center the image */
+}
+.affiliations {
+    text-align: center;
+}
+.affiliations span {
+    margin-right: 10px;
+}
+.affiliations a {
+    color: black;
+}
+.accepted h2 {
+    color: #007bff;
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+.accepted h2 a {
+    color: #007bff;
+    text-decoration: none;
+}
+.accepted h2 a:hover {
+    text-decoration: underline;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.section {
+    width: 80%;
+    margin: 5px 0;
+}
+.main-container {
+    padding: 0px;
+    margin: 20px;
+    box-shadow: 0 0 0 2px #007bff, 0 0 0 4px #0056b3, 0 0 0 6px #007bff;
+}
 
-  <section class="figures" id="figures">
-    <div class="container">
-      <h3 class="center">Visual Results</h3>
-      <div class="gallery gallery-fullsize">
-        <img src="figs/manyfigs.png" alt="Many Figures">
-        <img src="figs/comparison.png" alt="Qualitative Comparison">
-      </div>
-      <p class="caption">Sample generations and benchmark comparisons. See paper for more details.</p>
-    </div>
-  </section>
-
-  <section class="benchmarks" id="benchmarks">
-    <div class="container">
-      <h3 class="center">Benchmarks & Evaluation</h3>
-      <ul>
-        <li><b>GDINO</b> as counting metric for robust, open-vocabulary evaluation</li>
-        <li>New benchmarks: <b>CountLoop-S</b> (single-category, high-count) and <b>CountLoop-M</b> (multi-category)</li>
-        <li>Superior performance vs. SLD, Make-It-Count, and others</li>
-      </ul>
-      <img src="figs/plot_sota.png" alt="Count Accuracy vs Number of Objects" class="benchmark-plot" style="display:block;max-width:50%;height:auto;margin:1.5rem auto 1rem auto;box-shadow:0 2px 12px rgba(44,62,80,0.08);border-radius:12px;">
-
-      <div class="benchmark-tables">
-        <h4 class="center">Counting and Aesthetic Quality Across Four Benchmarks</h4>
-        <div style="overflow-x:auto; max-width:100%; box-sizing:border-box; padding-bottom:1rem;">
-        <table class="center-table">
-          <caption><b>Comparing counting and aesthetic quality across four benchmarks.</b> For every dataset we report <i>Counting</i>—split into <b>F1</b> score and <b>Acc</b>uracy—and <i>Spatial</i> (aesthetic quality).</caption>
-          <thead>
-            <tr>
-              <th rowspan="2">Type</th>
-              <th rowspan="2">Model</th>
-              <th colspan="3">COCO-Count</th>
-              <th colspan="3">T2I-Compbench</th>
-              <th colspan="3">CountLoop-S</th>
-              <th colspan="3">CountLoop-M</th>
-            </tr>
-            <tr>
-              <th>F1</th><th>Acc.</th><th>Spatial</th>
-              <th>F1</th><th>Acc.</th><th>Spatial</th>
-              <th>F1</th><th>Acc.</th><th>Spatial</th>
-              <th>F1</th><th>Acc.</th><th>Spatial</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td rowspan="5">T2I</td><td>SDXL</td><td>71.87</td><td>42.13</td><td>0.38</td><td>84.36</td><td>44.00</td><td>0.75</td><td>55.40</td><td>24.49</td><td>0.63</td><td>77.84</td><td>67.25</td><td>0.55</td></tr>
-            <tr><td>FLUX</td><td>84.73</td><td>54.19</td><td>0.53</td><td>90.75</td><td>57.00</td><td>0.78</td><td>49.08</td><td>29.59</td><td>0.65</td><td>79.99</td><td>78.00</td><td>0.58</td></tr>
-            <tr><td>SD 3.5</td><td>83.97</td><td>50.56</td><td>0.46</td><td>88.56</td><td>50.00</td><td>0.76</td><td>54.96</td><td>33.67</td><td>0.64</td><td>79.91</td><td>77.19</td><td>0.56</td></tr>
-            <tr><td>Counting Guidance</td><td>67.54</td><td>18.50</td><td>0.63</td><td>71.41</td><td>17.50</td><td>0.56</td><td>36.67</td><td>10.20</td><td>0.47</td><td>64.42</td><td>25.90</td><td>0.41</td></tr>
-            <tr><td>GPT-4o</td><td>92.91</td><td>72.50</td><td>0.55</td><td>94.19</td><td>68.00</td><td><b>0.80</b></td><td>49.45</td><td>39.64</td><td>0.69</td><td>79.10</td><td>50.11</td><td>0.60</td></tr>
-            <tr><td rowspan="3">Agentic</td><td>GenArtist</td><td>75.40</td><td>45.50</td><td>0.45</td><td>85.33</td><td>55.82</td><td>0.70</td><td>51.00</td><td>30.56</td><td>0.60</td><td>77.87</td><td>70.34</td><td>0.57</td></tr>
-            <tr><td>SLD</td><td>90.34</td><td>69.90</td><td>0.70</td><td>91.50</td><td>65.50</td><td>0.77</td><td>55.04</td><td>40.07</td><td>0.75</td><td>82.46</td><td>74.35</td><td>0.65</td></tr>
-            <tr><td>RPG-DiffusionMaster</td><td>84.89</td><td>60.73</td><td>0.60</td><td>91.32</td><td>60.00</td><td>0.75</td><td>51.89</td><td>34.38</td><td>0.70</td><td>80.16</td><td>71.46</td><td>0.62</td></tr>
-            <tr><td rowspan="4">L2I</td><td>LMD</td><td>54.69</td><td>29.81</td><td>0.24</td><td>71.44</td><td>35.50</td><td>0.73</td><td>49.24</td><td>28.57</td><td>0.66</td><td>80.28</td><td>77.67</td><td>0.64</td></tr>
-            <tr><td>MIGC</td><td>73.82</td><td>36.11</td><td>0.36</td><td>71.47</td><td>33.00</td><td>0.65</td><td>54.16</td><td>25.17</td><td>0.65</td><td>81.06</td><td>79.08</td><td>0.62</td></tr>
-            <tr><td>CountGen</td><td>58.99</td><td>50.00</td><td>0.61</td><td>63.75</td><td>19.78</td><td>0.75</td><td>48.18</td><td>41.40</td><td>0.72</td><td>72.00</td><td>45.33</td><td>0.69</td></tr>
-            <tr><td><b>CountLoop (Ours)</b></td><td><b>98.47</b></td><td><b>93.33</b></td><td><b>0.93</b></td><td><b>95.38</b></td><td><b>78.50</b></td><td>0.79</td><td><b>60.00</b></td><td><b>55.00</b></td><td><b>0.97</b></td><td><b>85.43</b></td><td><b>83.67</b></td><td><b>0.73</b></td></tr>
-          </tbody>
-        </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="citation" id="citation">
-    <div class="container">
-      <h3 class="center">BibTeX Citation</h3>
-      <pre>
-    @article{Mondal et.al., 
-    title={CountLoop: Iterative Agent Guided High Instance Image Generation}, 
-    url={https://openreview.net/forum?id=NZ0H1XtcZG}, 
-    author={Mondal, Anindya and Banerjee, Ayan and Nag, Sauradip and Llados, Josep and Zhu, Xiatian and Dutta, Anjan},
-    language={en}}
-      </pre>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <p>Contact: a.mondal@surrey.ac.uk &nbsp; | &nbsp; <a href="https://github.com/your-repo" target="_blank">GitHub</a></p>
-      <p>&copy; 2024 CountLoop Project</p>
-    </div>
-  </footer>
-</body>
-  <!-- <section class="features card" id="features"> -->
+/* Additional styles for CountLoop tables */
+.benchmark-tables {
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+tr:hover {
+    background-color: #f1f1f1;
+}
+caption {
+    caption-side: top;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
