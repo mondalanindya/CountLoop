@@ -57,16 +57,10 @@
 
             <div class="section">
                 <h2 style="text-align: center;">Abstract</h2>
-                <p style="text-align: justify;">Diffusion models excel at photorealistic synthesis but struggle with
-                    precise object counts, especially in high-density settings. We introduce COUNTLOOP, a training-free
-                    framework that achieves precise instance control using iterative, structured feedback. Our method
-                    alternates between synthesis and evaluation, using a VLM-guided agent as both a layout planner and a
-                    critic. This agent provides explicit feedback on object counts, spatial arrangements, and attributes
-                    to refine the scene layout iteratively. Instance-driven attention masking and cumulative attention
-                    composition further prevent semantic leakage, ensuring clear object separation even in occluded
-                    scenes. Evaluations on high-instance benchmarks show COUNTLOOP achieves up to 2x higher counting
-                    accuracy and significantly improves spatial alignment over strong layout-based, gradient-guided, and
-                    agentic approaches, while maintaining photorealism.</p>
+                <p style="text-align: justify;">Diffusion models excel at photorealistic synthesis but struggle with precise object counts, especially in high-density settings. We introduce COUNTLOOP, a training-free framework that achieves precise instance
+control through iterative, structured feedback. Our method alternates between synthesis and evaluation: a VLM-based planner generates structured scene layouts, while a VLM-based critic provides explicit feedback on
+object counts, spatial arrangements, and visual quality to refine the layout iteratively. Instance-driven attention masking and cumulative attention composition further prevent semantic leakage, ensuring clear object separation even in densely occluded scenes. Evaluations on COCO-Count,
+T2I-CompBench, and two newly introduced high instance benchmarks show that COUNTLOOP reduces counting error by up to 57% and achieves the highest or comparable spatial quality scores across all benchmarks, while maintaining photorealism..</p>
             </div>
 
             <div class="section">
@@ -96,7 +90,7 @@
                 <h2 style="text-align: center;">Benchmarks & Evaluation</h2>
                 <p style="text-align: center;">We evaluate on four sets spanning instance count and compositional
                     difficulty: COCO-Count, T2I-CompBenchCount, and newly proposed CountLoop-S and CountLoop-M.</p>
-                <img src="figs/newmae1.png" alt="Left: Counting difficulty rises with instance count. Right: Runtime curves echo the same ordering." class="full-width"
+                <img src="figs/newmae_1.png" alt="Left: Counting difficulty rises with instance count. Right: Runtime curves echo the same ordering." class="full-width"
                     style="max-width: 50%; display: block; margin: auto;">
 
                 <div class="benchmark-tables">
