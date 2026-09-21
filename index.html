@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance">
-    <meta name="keywords" content="CountLoop, diffusion models, image generation, object counting, VLM, iterative agent">
+    <meta name="description" content="CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance (TMLR 2026)">
+    <meta name="keywords" content="CountLoop, diffusion models, image generation, object counting, VLM, iterative agent, TMLR">
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -18,32 +18,45 @@
 <body>
     <div class="main-container">
         <header>
+            <div class="venue-container">
+                <span class="venue-tag"><i class="fas fa-award"></i> Transactions on Machine Learning Research (TMLR 2026)</span>
+            </div>
             <h1><b>CountLoop: Training-Free High-Instance Image Generation<br>via Iterative Agent Guidance</b></h1>
             <div class="authors">
-                <span><a href="https://mondalanindya.github.io/">Anindya Mondal<sup>1</sup></a></span>
-                <span><a href="https://ayanban011.github.io/">Ayan Banerjee<sup>2</sup></a></span>
-                <span><a href="https://scholar.google.co.uk/citations?user=hlkMCO4AAAAJ&hl">Sauradip Nag<sup>3</sup></a></span>
-                <span><a href="https://scholar.google.co.uk/citations?user=92pWl-AAAAAJ&hl">Josep Lladós<sup>2</sup></a></span>
-                <span><a href="https://x-up-lab.github.io/">Xiatian Zhu<sup>1</sup></a></span>
-                <span><a href="https://sites.google.com/site/2adutta/">Anjan Dutta<sup>1</sup></a></span>
+                <span><a href="https://mondalanindya.github.io/" target="_blank">Anindya Mondal<sup>1,*</sup></a></span>
+                <span><a href="https://scholar.google.co.uk/citations?user=hlkMCO4AAAAJ&hl" target="_blank">Sauradip Nag<sup>2,&dagger;</sup></a></span>
+                <span><a href="https://ayanban011.github.io/" target="_blank">Ayan Banerjee<sup>3,&dagger;</sup></a></span>
+                <span><a href="https://scholar.google.co.uk/citations?user=92pWl-AAAAAJ&hl" target="_blank">Josep Llad&oacute;s<sup>3</sup></a></span>
+                <span><a href="https://x-up-lab.github.io/" target="_blank">Xiatian Zhu<sup>1</sup></a></span>
+                <span><a href="https://sites.google.com/site/2adutta/" target="_blank">Anjan Dutta<sup>1,*</sup></a></span>
             </div>
 
             <div class="affiliations">
                 <span><sup>1</sup>University of Surrey, UK</span>
-                <span><sup>2</sup>Computer Vision Center, UAB, Spain</span>
-                <span><sup>3</sup>Simon Fraser University, Canada</span>
+                <span><sup>2</sup>Simon Fraser University, Canada</span>
+                <span><sup>3</sup>Computer Vision Center, Universitat Aut&ograve;noma de Barcelona, Spain</span>
+            </div>
+
+            <div class="author-notes">
+                <span><sup>*</sup>Correspondence: <a href="mailto:a.mondal@surrey.ac.uk">a.mondal@surrey.ac.uk</a>, <a href="mailto:anjan.dutta@surrey.ac.uk">anjan.dutta@surrey.ac.uk</a></span>
+                <span>&bull;</span>
+                <span><sup>&dagger;</sup>Equal Contribution</span>
             </div>
 
             <div class="header-links">
-                <a href="https://arxiv.org/pdf/2508.16644" class="lnk">
-                    <i class="fas fa-file-pdf"></i> PDF
+                <a href="https://openreview.net/forum?id=2JxXGhpCP4" target="_blank" class="lnk">
+                    <i class="fas fa-scroll"></i> OpenReview
                 </a>
                 <span class="link-sep">|</span>
-                <a href="https://huggingface.co/datasets/anindyamondal/COUNTLOOP" class="lnk">
+                <a href="https://arxiv.org/pdf/2508.16644" target="_blank" class="lnk">
+                    <i class="fas fa-file-pdf"></i> arXiv PDF
+                </a>
+                <span class="link-sep">|</span>
+                <a href="https://huggingface.co/datasets/anindyamondal/COUNTLOOP" target="_blank" class="lnk">
                     <i class="fa fa-database"></i> Benchmark
                 </a>
                 <span class="link-sep">|</span>
-                <a href="https://github.com/mondalanindya/CountLoop/" class="lnk">
+                <a href="https://github.com/mondalanindya/CountLoop/" target="_blank" class="lnk">
                     <i class="fab fa-github"></i> Code
                 </a>
             </div>
@@ -51,22 +64,23 @@
 
         <div class="container">
             <div class="section">
-                <p class="tldr">TL;DR: CountLoop is a training-free framework that
-                    achieves precise instance control using iterative, structured feedback. Our method alternates
-                    between synthesis and evaluation, using a VLM-guided agent as both a layout planner and a critic.
+                <p class="tldr">TL;DR: CountLoop is a training-free framework that achieves structured instance and count control using iterative, structured feedback. Our method alternates between synthesis and evaluation, using a VLM-guided agent as both a layout planner and a critic.</p>
+            </div>
+
+            <div class="section">
+                <picture>
+                    <source srcset="figs/countloop_teaser_rev.webp" type="image/webp">
+                    <img src="figs/countloop_teaser_rev.png" alt="CountLoop teaser showing high-instance image generation results and downstream applications" class="full-width" loading="lazy">
+                </picture>
+                <p class="figure-caption text-justify">
+                    <b>CountLoop generates high-cardinality scenes with precise count alignment and clear object separation.</b>
+                    Given prompts with explicit per-class counts, CountLoop produces images whose detected counts show substantially improved alignment with targets, even at high cardinalities (e.g., 140 oranges and 31 birds), where competing methods suffer from count saturation, semantic leakage, and grid-like layouts. Unlike prior approaches, CountLoop requires no retraining: a VLM-guided planning graph structures the layout, instance-driven attention masking prevents attribute leakage, and a Critic VLM iteratively refines the scene until the count and quality criteria are met. Count-faithful synthesis facilitates practical applications: (a) augmenting object-counting datasets with high-instance scenes, and (b) compositional image generation in complex out-of-distribution scenarios.
                 </p>
             </div>
 
             <div class="section">
-                <img src="figs/eccv_teaser.png" alt="CountLoop teaser showing high-instance image generation results" class="full-width" loading="lazy">
-            </div>
-
-            <div class="section">
                 <h2>Abstract</h2>
-                <p class="text-justify">Diffusion models excel at photorealistic synthesis but struggle with precise object counts, especially in high-density settings. We introduce COUNTLOOP, a training-free framework that achieves precise instance
-control through iterative, structured feedback. Our method alternates between synthesis and evaluation: a VLM-based planner generates structured scene layouts, while a VLM-based critic provides explicit feedback on
-object counts, spatial arrangements, and visual quality to refine the layout iteratively. Instance-driven attention masking and cumulative attention composition further prevent semantic leakage, ensuring clear object separation even in densely occluded scenes. Evaluations on COCO-Count,
-T2I-CompBench, and two newly introduced high instance benchmarks show that COUNTLOOP reduces counting error by up to 57% and achieves the highest or comparable spatial quality scores across all benchmarks, while maintaining photorealism.</p>
+                <p class="text-justify">Diffusion models excel at photorealistic synthesis but struggle with object count fidelity, especially in high-density settings. We introduce <b>CountLoop</b>, a training-free framework that achieves structured instance and count control through iterative, structured feedback. Our method alternates between synthesis and evaluation: a VLM-based planner generates structured scene layouts, while a VLM-based critic provides explicit feedback on object counts, spatial arrangements, and visual quality to refine the layout iteratively. Instance-driven attention masking and cumulative attention composition further prevent semantic leakage, ensuring clear object separation even in densely occluded scenes. Evaluations on COCO-Count, T2I-CompBench, and two newly introduced high instance benchmarks show that CountLoop reduces counting error by up to 57% and achieves the highest or comparable spatial quality scores across all benchmarks, while maintaining photorealism.</p>
             </div>
 
             <div class="section">
@@ -86,50 +100,62 @@ T2I-CompBench, and two newly introduced high instance benchmarks show that COUNT
                 <p class="text-center">CountLoop consistently avoids semantic drift, grid artifacts, and count
                     inaccuracies that outperform competitors for high-instance image generation. It scales reliably to
                     100+ instances per image.</p>
-                <img src="figs/comparison.png" alt="Qualitative comparison of CountLoop versus competing methods" class="full-width" loading="lazy">
-                <p class="text-center">Comparison with state-of-the-art methods. CountLoop accurately renders
-                    high counts (e.g., "17 vases", "104 hot air balloons") with natural arrangements, whereas
-                    competitors often under-generate or produce artificial clusters.</p>
+                <picture>
+                    <source srcset="figs/qual_final.webp" type="image/webp">
+                    <img src="figs/qual_final.png" alt="Qualitative comparison of CountLoop versus competing methods across varied instance counts" class="full-width" loading="lazy">
+                </picture>
+                <p class="figure-caption text-justify"><b>Qualitative comparison with state-of-the-art methods across varied instance counts.</b> CountLoop accurately renders high counts (e.g., "17 vases", "104 hot air balloons", "49 oranges", "77 donuts", "127 wrist watches") with natural arrangements, whereas competitors under-generate, produce artificial grid clusters, or suffer severe attribute leakage.</p>
             </div>
 
             <div class="section">
                 <h2>Benchmarks &amp; Evaluation</h2>
-                <p class="text-center">We evaluate on four sets spanning instance count and compositional
-                    difficulty: COCO-Count, T2I-CompBenchCount, and newly proposed CountLoop-S and CountLoop-M.</p>
-                <img src="figs/newmae_1.png"
-                    alt="Left: Counting difficulty rises with instance count. Right: Runtime curves echo the same ordering."
-                    class="full-width chart-img" loading="lazy">
+                <p class="text-center">We evaluate on four benchmarks spanning instance count and compositional
+                    difficulty: COCO-Count, T2I-CompBench, and newly proposed CountLoop-S and CountLoop-M.</p>
+                
+                <div class="charts-row">
+                    <div class="chart-col">
+                        <img src="figs/maevstime.png" alt="Counting difficulty rises with instance count (MAE vs Number of Objects)" loading="lazy">
+                        <p class="chart-caption text-center"><b>MAE vs. Number of Objects:</b> Counting difficulty rises with instance count. CountLoop sustains substantially lower error across cardinalities.</p>
+                    </div>
+                    <div class="chart-col">
+                        <img src="figs/newmae_1.png" alt="MAE vs Runtime across N=25, 50, 100 objects" loading="lazy">
+                        <p class="chart-caption text-center"><b>MAE vs. Generation Time:</b> Runtime curves echo the same ordering across N=25, 50, 100 objects, illustrating the accuracy-efficiency trade-off.</p>
+                    </div>
+                </div>
 
                 <div class="benchmark-tables">
                     <h4 class="text-center">Counting and Aesthetic Quality Across Four Benchmarks</h4>
                     <table>
-                        <caption><b>Comparing counting and aesthetic quality across four benchmarks across <span
+                        <caption><b>Comparing counting error (MAE&darr;), exact-count match (Ex.&uarr;), and spatial quality (Spatial&uarr;) across four benchmarks across <span
                                     class="badge badge-t2i">T2I</span>, <span
                                     class="badge badge-l2i">L2I</span>, and
                                 <span class="badge badge-agentic">Agentic</span>
-                                systems.</b> For every dataset we report <b>Counting</b> (MAE&darr;) and
-                            <b>Spatial</b>&uarr; (aesthetic quality).</caption>
+                                systems.</b> Best in <b>bold</b>, second-best <u>underlined</u>.</caption>
                         <thead>
                             <tr>
-                                <th rowspan="3">Type</th>
+                                <th rowspan="3">Family</th>
                                 <th rowspan="3">Model</th>
-                                <th colspan="6">Single Category</th>
-                                <th colspan="2">Multi Categories</th>
+                                <th colspan="9">Single Category</th>
+                                <th colspan="3">Multi Category</th>
                             </tr>
                             <tr>
-                                <th colspan="2">COCO-Count</th>
-                                <th colspan="2">T2I-CompBench</th>
-                                <th colspan="2">CountLoop-S</th>
-                                <th colspan="2">CountLoop-M</th>
+                                <th colspan="3">COCO-Count</th>
+                                <th colspan="3">T2I-CompBench</th>
+                                <th colspan="3">CountLoop-S</th>
+                                <th colspan="3">CountLoop-M</th>
                             </tr>
                             <tr>
-                                <th>Counting (MAE)&darr;</th>
+                                <th>MAE&darr;</th>
+                                <th>Ex.&uarr;</th>
                                 <th>Spatial&uarr;</th>
-                                <th>Counting (MAE)&darr;</th>
+                                <th>MAE&darr;</th>
+                                <th>Ex.&uarr;</th>
                                 <th>Spatial&uarr;</th>
-                                <th>Counting (MAE)&darr;</th>
+                                <th>MAE&darr;</th>
+                                <th>Ex.&uarr;</th>
                                 <th>Spatial&uarr;</th>
-                                <th>Counting (MAE)&darr;</th>
+                                <th>MAE&darr;</th>
+                                <th>Ex.&uarr;</th>
                                 <th>Spatial&uarr;</th>
                             </tr>
                         </thead>
@@ -139,56 +165,76 @@ T2I-CompBench, and two newly introduced high instance benchmarks show that COUNT
                                 <td rowspan="5">T2I</td>
                                 <td>SDXL</td>
                                 <td>2.37</td>
+                                <td>25%</td>
                                 <td>0.38</td>
                                 <td>2.72</td>
+                                <td>25%</td>
                                 <td>0.75</td>
                                 <td>29.96</td>
+                                <td>0%</td>
                                 <td>0.63</td>
                                 <td>9.89</td>
+                                <td>10%</td>
                                 <td>0.55</td>
                             </tr>
                             <tr>
                                 <td>FLUX</td>
                                 <td>1.40</td>
+                                <td>55%</td>
                                 <td>0.53</td>
                                 <td>1.48</td>
-                                <td>0.78</td>
+                                <td>55%</td>
+                                <td class="second-best">0.78</td>
                                 <td>17.47</td>
+                                <td>4%</td>
                                 <td>0.65</td>
                                 <td>9.62</td>
+                                <td>12%</td>
                                 <td>0.58</td>
                             </tr>
                             <tr>
                                 <td>SD 3.5</td>
                                 <td>1.10</td>
+                                <td>55%</td>
                                 <td>0.46</td>
                                 <td>1.58</td>
+                                <td>40%</td>
                                 <td>0.76</td>
                                 <td>21.81</td>
+                                <td>0%</td>
                                 <td>0.64</td>
                                 <td>8.40</td>
+                                <td>16%</td>
                                 <td>0.56</td>
                             </tr>
                             <tr>
                                 <td>SDXL-Turbo</td>
                                 <td>2.50</td>
+                                <td>25%</td>
                                 <td>0.23</td>
                                 <td>3.76</td>
+                                <td>10%</td>
                                 <td>0.53</td>
                                 <td>51.14</td>
+                                <td>0%</td>
                                 <td>0.39</td>
                                 <td>9.95</td>
+                                <td>10%</td>
                                 <td>0.37</td>
                             </tr>
                             <tr>
                                 <td>Counting Guidance</td>
                                 <td>1.68</td>
+                                <td>40%</td>
                                 <td>0.63</td>
                                 <td>3.90</td>
+                                <td>10%</td>
                                 <td>0.56</td>
                                 <td>42.49</td>
+                                <td>0%</td>
                                 <td>0.47</td>
                                 <td>8.43</td>
+                                <td>16%</td>
                                 <td>0.41</td>
                             </tr>
                             <!-- L2I Group -->
@@ -196,116 +242,171 @@ T2I-CompBench, and two newly introduced high instance benchmarks show that COUNT
                                 <td rowspan="5">L2I</td>
                                 <td>LMD</td>
                                 <td>3.09</td>
+                                <td>10%</td>
                                 <td>0.24</td>
                                 <td>5.56</td>
+                                <td>2%</td>
                                 <td>0.73</td>
                                 <td>16.62</td>
+                                <td>5%</td>
                                 <td>0.66</td>
                                 <td>6.34</td>
+                                <td>25%</td>
                                 <td>0.64</td>
                             </tr>
                             <tr>
                                 <td>MIGC</td>
                                 <td>1.83</td>
+                                <td>40%</td>
                                 <td>0.36</td>
                                 <td>2.96</td>
+                                <td>25%</td>
                                 <td>0.65</td>
                                 <td>17.54</td>
+                                <td>4%</td>
                                 <td>0.65</td>
                                 <td>6.28</td>
+                                <td>25%</td>
                                 <td>0.62</td>
                             </tr>
                             <tr>
                                 <td>CountGen</td>
                                 <td>1.88</td>
+                                <td>40%</td>
                                 <td>0.61</td>
                                 <td>5.22</td>
+                                <td>2%</td>
                                 <td>0.75</td>
                                 <td>34.44</td>
+                                <td>0%</td>
                                 <td>0.72</td>
                                 <td>6.46</td>
-                                <td>0.69</td>
+                                <td>24%</td>
+                                <td class="second-best">0.69</td>
                             </tr>
                             <tr>
                                 <td>InstanceDiffusion</td>
                                 <td>1.77</td>
+                                <td>40%</td>
                                 <td>0.40</td>
                                 <td>2.83</td>
+                                <td>25%</td>
                                 <td>0.68</td>
                                 <td>16.07</td>
+                                <td>5%</td>
                                 <td>0.74</td>
                                 <td>6.11</td>
+                                <td>26%</td>
                                 <td>0.66</td>
                             </tr>
                             <tr>
                                 <td>3DIS</td>
                                 <td>1.56</td>
+                                <td>40%</td>
                                 <td>0.42</td>
                                 <td>2.56</td>
+                                <td>25%</td>
                                 <td>0.70</td>
-                                <td>14.55</td>
-                                <td>0.76</td>
+                                <td class="second-best">14.55</td>
+                                <td>6%</td>
+                                <td class="second-best">0.76</td>
                                 <td>5.75</td>
-                                <td>0.69</td>
+                                <td>27%</td>
+                                <td class="second-best">0.69</td>
                             </tr>
                             <!-- Agentic Group -->
                             <tr>
                                 <td rowspan="4">Agentic</td>
                                 <td>GenArtist</td>
                                 <td>1.50</td>
+                                <td>40%</td>
                                 <td>0.45</td>
                                 <td>1.50</td>
+                                <td>40%</td>
                                 <td>0.70</td>
                                 <td>32.47</td>
+                                <td>0%</td>
                                 <td>0.60</td>
                                 <td>4.93</td>
+                                <td>11%</td>
                                 <td>0.57</td>
                             </tr>
                             <tr>
                                 <td>SLD</td>
                                 <td>1.15</td>
-                                <td>0.70</td>
+                                <td>55%</td>
+                                <td class="second-best">0.70</td>
                                 <td>1.44</td>
+                                <td>55%</td>
                                 <td>0.77</td>
                                 <td>29.65</td>
+                                <td>0%</td>
                                 <td>0.75</td>
-                                <td>3.74</td>
+                                <td class="second-best">3.74</td>
+                                <td>20%</td>
                                 <td>0.65</td>
                             </tr>
                             <tr>
                                 <td>RPG</td>
                                 <td>1.28</td>
+                                <td>55%</td>
                                 <td>0.60</td>
                                 <td>1.47</td>
+                                <td>55%</td>
                                 <td>0.75</td>
                                 <td>31.85</td>
+                                <td>0%</td>
                                 <td>0.70</td>
                                 <td>4.34</td>
+                                <td>15%</td>
                                 <td>0.62</td>
                             </tr>
                             <tr>
                                 <td>Qwen-Image</td>
-                                <td>1.04</td>
+                                <td class="second-best">1.04</td>
+                                <td>55%</td>
                                 <td>0.58</td>
-                                <td>1.26</td>
+                                <td class="second-best">1.26</td>
+                                <td>55%</td>
                                 <td>0.77</td>
                                 <td>17.30</td>
+                                <td>4%</td>
                                 <td>0.74</td>
                                 <td>6.92</td>
+                                <td>22%</td>
                                 <td>0.66</td>
                             </tr>
-                            <!-- Ours -->
+                            <!-- Ours Group -->
                             <tr class="ours-row">
-                                <td></td>
-                                <td><b>CountLoop (Ours)</b></td>
-                                <td><b>0.45</b></td>
-                                <td><b>0.93</b></td>
-                                <td><b>1.23</b></td>
-                                <td><b>0.79</b></td>
-                                <td><b>7.59</b></td>
-                                <td><b>0.93</b></td>
-                                <td><b>2.13</b></td>
-                                <td><b>0.73</b></td>
+                                <td rowspan="2"><b>Ours</b></td>
+                                <td><b>CountLoop (w/ GDINO critic)</b></td>
+                                <td>0.45</td>
+                                <td>85%</td>
+                                <td>0.93</td>
+                                <td>1.23</td>
+                                <td>55%</td>
+                                <td>0.79</td>
+                                <td>7.59</td>
+                                <td>20%</td>
+                                <td>0.93</td>
+                                <td>2.13</td>
+                                <td>33%</td>
+                                <td>0.73</td>
+                            </tr>
+                            <tr class="ours-row">
+                                <td><b class="ours-best">CountLoop (w/ CountGD++ critic)</b></td>
+                                <td><b class="ours-best">0.32</b></td>
+                                <td><b class="ours-best">85%</b></td>
+                                <td><b class="ours-best">0.98</b></td>
+                                <td><b class="ours-best">0.87</b></td>
+                                <td><b class="ours-best">70%</b></td>
+                                <td><b class="ours-best">0.95</b></td>
+                                <td><b class="ours-best">5.33</b></td>
+                                <td><b class="ours-best">29%</b></td>
+                                <td><b class="ours-best">0.97</b></td>
+                                <td><b class="ours-best">1.02</b></td>
+                                <td><b class="ours-best">42%</b></td>
+                                <td><b class="ours-best">0.85</b></td>
                             </tr>
                         </tbody>
                     </table>
@@ -315,13 +416,17 @@ T2I-CompBench, and two newly introduced high instance benchmarks show that COUNT
             <div class="section">
                 <h2>BibTeX Citation</h2>
                 <div class="bibtex-container">
-                    <pre><code>@article{Mondal2024CountLoop,
+                    <div class="bibtex-wrapper">
+                        <button class="copy-bib-btn" onclick="copyBibtex()" id="copyBtn">
+                            <i class="fas fa-copy"></i> Copy BibTeX
+                        </button>
+                        <pre><code id="bibtexCode">@article{mondal2026countloop,
   title   = {CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance},
-  author  = {Mondal, Anindya and Banerjee, Ayan and Nag, Sauradip and
-             Llados, Josep and Zhu, Xiatian and Dutta, Anjan},
-  journal = {arXiv preprint},
-  year    = {2024}
+  author  = {Mondal, Anindya and Nag, Sauradip and Banerjee, Ayan and Llados, Josep and Zhu, Xiatian and Dutta, Anjan},
+  journal = {Transactions on Machine Learning Research (TMLR)},
+  year    = {2026}
 }</code></pre>
+                    </div>
                 </div>
             </div>
 
@@ -334,12 +439,26 @@ T2I-CompBench, and two newly introduced high instance benchmarks show that COUNT
             </div>
 
             <div class="section footer-section">
-                <p class="footer-note">Contact: a.mondal@surrey.ac.uk &nbsp; | &nbsp; <a
-                        href="https://github.com/mondalanindya/CountLoop/" target="_blank">GitHub</a></p>
-                <p class="footer-note">&copy; 2025 CountLoop Project</p>
+                <p class="footer-note">Contact: <a href="mailto:a.mondal@surrey.ac.uk">a.mondal@surrey.ac.uk</a> &nbsp;|&nbsp; <a href="mailto:anjan.dutta@surrey.ac.uk">anjan.dutta@surrey.ac.uk</a> &nbsp;|&nbsp; <a href="https://github.com/mondalanindya/CountLoop/" target="_blank">GitHub</a></p>
+                <p class="footer-note">&copy; 2026 CountLoop Project &bull; Transactions on Machine Learning Research (TMLR)</p>
             </div>
         </div>
     </div>
+
+    <script>
+    function copyBibtex() {
+        const bib = document.getElementById('bibtexCode').innerText;
+        navigator.clipboard.writeText(bib).then(() => {
+            const btn = document.getElementById('copyBtn');
+            btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-copy"></i> Copy BibTeX';
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+    </script>
 </body>
 
 </html>
