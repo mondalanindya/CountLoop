@@ -175,12 +175,17 @@ header h1 {
     box-shadow: 0 0 18px rgba(0, 123, 255, 0.06);
 }
 
-/* images */
+/* pictures and images */
+picture {
+    display: block;
+    width: 100%;
+}
+
 img.full-width {
     width: 100%;
     height: auto;
     border-radius: 8px;
-    margin-top: 18px;
+    margin-top: 14px;
     display: block;
 }
 
@@ -188,6 +193,16 @@ img.chart-img {
     max-width: 50%;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* zoomable image & interactive lightbox */
+img.zoomable {
+    cursor: zoom-in;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+img.zoomable:hover {
+    box-shadow: 0 4px 16px rgba(11, 94, 215, 0.18);
 }
 
 /* small icons */
@@ -204,15 +219,72 @@ img.chart-img {
     justify-content: center;
 }
 
+/* qualitative comparison panels */
+.panel-card {
+    background: #fdfdfe;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 6px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.panel-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.panel-badge {
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+}
+
+.click-hint {
+    font-size: 0.82rem;
+    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.click-hint:hover {
+    color: #0284c7;
+}
+
 /* figure captions */
 .figure-caption {
     font-size: 0.95rem;
     color: #444;
-    margin-top: 10px;
-    line-height: 1.5;
+    margin-top: 12px;
+    line-height: 1.55;
 }
 
-/* evaluation charts side-by-side */
+/* evaluation charts figure */
+.figure-container {
+    margin-top: 18px;
+}
+
 .charts-row {
     display: flex;
     flex-wrap: wrap;
@@ -242,6 +314,71 @@ img.chart-img {
     color: #555;
     margin-top: 8px;
     line-height: 1.4;
+}
+
+/* lightbox modal */
+#lightbox-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 24px;
+    cursor: zoom-out;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+#lightbox-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+#lightbox-img {
+    max-width: 95vw;
+    max-height: 88vh;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    object-fit: contain;
+    cursor: default;
+}
+
+#lightbox-close {
+    position: absolute;
+    top: 18px;
+    right: 26px;
+    color: #f8fafc;
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+#lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+#lightbox-caption {
+    color: #cbd5e1;
+    font-size: 0.92rem;
+    margin-top: 12px;
+    text-align: center;
+    max-width: 900px;
 }
 
 /* pre / bibtex */

@@ -70,7 +70,7 @@
             <div class="section">
                 <picture>
                     <source srcset="figs/countloop_teaser_rev.webp" type="image/webp">
-                    <img src="figs/countloop_teaser_rev.png" alt="CountLoop teaser showing high-instance image generation results and downstream applications" class="full-width" loading="lazy">
+                    <img src="figs/countloop_teaser_rev.png" alt="CountLoop teaser showing high-instance image generation results and downstream applications" class="full-width zoomable" onclick="openLightbox(this)" loading="lazy">
                 </picture>
                 <p class="figure-caption text-justify">
                     <b>CountLoop generates high-cardinality scenes with precise count alignment and clear object separation.</b>
@@ -85,7 +85,10 @@
 
             <div class="section">
                 <h2>Pipeline Overview</h2>
-                <img src="figs/pipeline.png" alt="CountLoop pipeline: Design VLM, cumulative attention generation, Critic VLM feedback loop" class="full-width" loading="lazy">
+                <picture>
+                    <source srcset="figs/pipeline.webp" type="image/webp">
+                    <img src="figs/pipeline.png" alt="CountLoop pipeline: Design VLM, cumulative attention generation, Critic VLM feedback loop" class="full-width zoomable" onclick="openLightbox(this)" loading="lazy">
+                </picture>
                 <p class="text-justify">CountLoop operates in three stages: (1) A Design VLM interprets the
                     prompt to produce realistic layouts. (2) These layouts guide style-consistent image generation via a
                     cumulative attention mechanism. (3) A Critic VLM assesses the output for counting accuracy and
@@ -96,15 +99,54 @@
 
             <div class="section">
                 <h2>Visual Results</h2>
-                <img src="figs/manyfigs.png" alt="CountLoop results across various instance counts" class="full-width" loading="lazy">
-                <p class="text-center">CountLoop consistently avoids semantic drift, grid artifacts, and count
-                    inaccuracies that outperform competitors for high-instance image generation. It scales reliably to
-                    100+ instances per image.</p>
                 <picture>
-                    <source srcset="figs/qual_final.webp" type="image/webp">
-                    <img src="figs/qual_final.png" alt="Qualitative comparison of CountLoop versus competing methods across varied instance counts" class="full-width" loading="lazy">
+                    <source srcset="figs/manyfigs.webp" type="image/webp">
+                    <img src="figs/manyfigs.png" alt="CountLoop results across various instance counts up to 100+ objects" class="full-width zoomable" onclick="openLightbox(this)" loading="lazy">
                 </picture>
-                <p class="figure-caption text-justify"><b>Qualitative comparison with state-of-the-art methods across varied instance counts.</b> CountLoop accurately renders high counts (e.g., "17 vases", "104 hot air balloons", "49 oranges", "77 donuts", "127 wrist watches") with natural arrangements, whereas competitors under-generate, produce artificial grid clusters, or suffer severe attribute leakage.</p>
+                <p class="text-center" style="margin-top: 10px; color: #555;">CountLoop consistently avoids semantic drift, grid artifacts, and count inaccuracies that outperform competitors for high-instance image generation. It scales reliably to 100+ instances per image.</p>
+                
+                <h3 style="margin-top: 28px; text-align: center; color: #1a365d;">Qualitative Comparison with State-of-the-Art Methods</h3>
+                <p class="text-center" style="color: #64748b; font-size: 0.95rem; margin-top: -6px; margin-bottom: 12px;">Click any image to inspect fine details and detections in full high-resolution.</p>
+
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <h4 class="panel-title"><i class="fas fa-layer-group"></i> Part 1: Single-Category &amp; High-Cardinality Scenes</h4>
+                        <span class="panel-badge">5 Methods &bull; 4 Diverse Prompts</span>
+                        <span class="click-hint" onclick="openLightbox(document.getElementById('qual-p1'))"><i class="fas fa-search-plus"></i> Click to enlarge</span>
+                    </div>
+                    <picture>
+                        <source srcset="figs/qual_final_part1.webp" type="image/webp">
+                        <img id="qual-p1" src="figs/qual_final_part1.png" alt="Qualitative comparison Part 1: CountLoop vs LMD, SLD, Counting Guidance, and CountGen on vases, hot air balloons, oranges, and donuts" class="full-width zoomable" onclick="openLightbox(this)" loading="lazy">
+                    </picture>
+                    <p class="figure-caption text-justify">
+                        <b>Part 1: Single-category scenes across scaling cardinalities.</b> Evaluating <i>CountLoop (Ours)</i> against <i>LMD</i>, <i>SLD</i>, <i>Counting Guidance</i>, and <i>CountGen</i> across:
+                        (1) <i>"17 vases on a windowsill"</i>,
+                        (2) <i>"104 hot air balloons in the sky"</i>,
+                        (3) <i>"49 oranges in a bowl"</i>, and
+                        (4) <i>"77 donuts in a shop named Fury Donuts"</i>.
+                        CountLoop faithfully satisfies requested counts and natural layouts without the severe under-generation, count saturation, or artificial grid clustering seen in prior approaches. Detected counts are indicated at the bottom right of each panel.
+                    </p>
+                </div>
+
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <h4 class="panel-title"><i class="fas fa-cubes"></i> Part 2: Multi-Category Compositions &amp; Dense Arrays</h4>
+                        <span class="panel-badge">5 Methods &bull; 4 Challenging Prompts</span>
+                        <span class="click-hint" onclick="openLightbox(document.getElementById('qual-p2'))"><i class="fas fa-search-plus"></i> Click to enlarge</span>
+                    </div>
+                    <picture>
+                        <source srcset="figs/qual_final_part2.webp" type="image/webp">
+                        <img id="qual-p2" src="figs/qual_final_part2.png" alt="Qualitative comparison Part 2: CountLoop vs baselines on multi-category cats and dogs, suitcases, watches, and eggs" class="full-width zoomable" onclick="openLightbox(this)" loading="lazy">
+                    </picture>
+                    <p class="figure-caption text-justify">
+                        <b>Part 2: Multi-category compositions and dense, occluded arrays.</b> Evaluating across:
+                        (1) <i>"3 cats and 10 dogs in a room facing the camera"</i>,
+                        (2) <i>"18 suitcases with a white background"</i>,
+                        (3) <i>"127 wrist watches on a black surface"</i>, and
+                        (4) <i>"79 eggs on a counter"</i>.
+                        Competing methods suffer from severe attribute leakage (e.g., dog textures bleeding into cats) or spatial collapse (e.g., watches overlapping or disappearing). CountLoop retains strict object separation and accurate per-class cardinality even under dense occlusion.
+                    </p>
+                </div>
             </div>
 
             <div class="section">
@@ -112,15 +154,16 @@
                 <p class="text-center">We evaluate on four benchmarks spanning instance count and compositional
                     difficulty: COCO-Count, T2I-CompBench, and newly proposed CountLoop-S and CountLoop-M.</p>
                 
-                <div class="charts-row">
-                    <div class="chart-col">
-                        <img src="figs/maevstime.png" alt="Counting difficulty rises with instance count (MAE vs Number of Objects)" loading="lazy">
-                        <p class="chart-caption text-center"><b>MAE vs. Number of Objects:</b> Counting difficulty rises with instance count. CountLoop sustains substantially lower error across cardinalities.</p>
-                    </div>
-                    <div class="chart-col">
-                        <img src="figs/newmae_1.png" alt="MAE vs Runtime across N=25, 50, 100 objects" loading="lazy">
-                        <p class="chart-caption text-center"><b>MAE vs. Generation Time:</b> Runtime curves echo the same ordering across N=25, 50, 100 objects, illustrating the accuracy-efficiency trade-off.</p>
-                    </div>
+                <div class="figure-container">
+                    <picture>
+                        <source srcset="figs/fig7_combined.webp" type="image/webp">
+                        <img src="figs/fig7_combined.png" alt="Counting difficulty rises with instance count (left); runtime curves echo the same ordering across cardinalities (right)" class="full-width zoomable" onclick="openLightbox(this)" loading="lazy">
+                    </picture>
+                    <p class="figure-caption text-justify">
+                        <b>Figure 7: Counting difficulty rises with instance count (left); runtime curves echo the same ordering across cardinalities (right).</b>
+                        <i>(a) MAE vs. Number of Objects:</i> As target instance counts grow from 1 to 100+, baseline diffusion models experience steep error growth due to count saturation and spatial collapse. CountLoop sustains substantially lower Mean Absolute Error across all cardinalities.
+                        <i>(b) MAE vs. Generation Time:</i> Evaluated at \(N=25\), \(50\), and \(100\) objects, runtime curves illustrate that CountLoop achieves Pareto-optimal counting accuracy with efficient iterative critic refinement.
+                    </p>
                 </div>
 
                 <div class="benchmark-tables">
@@ -445,7 +488,44 @@
         </div>
     </div>
 
+    <!-- Image Lightbox Modal -->
+    <div id="lightbox-modal" onclick="closeLightbox(event)">
+        <div id="lightbox-close" onclick="closeLightbox(event)">&times;</div>
+        <img id="lightbox-img" src="" alt="Enlarged view">
+        <div id="lightbox-caption"></div>
+    </div>
+
     <script>
+    function openLightbox(imgElement) {
+        if (!imgElement) return;
+        const modal = document.getElementById('lightbox-modal');
+        const modalImg = document.getElementById('lightbox-img');
+        const caption = document.getElementById('lightbox-caption');
+        // Use full-resolution source if available
+        modalImg.src = imgElement.currentSrc || imgElement.src;
+        modalImg.alt = imgElement.alt || '';
+        caption.innerText = imgElement.alt || '';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(event) {
+        if (event && event.target.id === 'lightbox-img') return;
+        const modal = document.getElementById('lightbox-modal');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('lightbox-modal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+    });
+
     function copyBibtex() {
         const bib = document.getElementById('bibtexCode').innerText;
         navigator.clipboard.writeText(bib).then(() => {
