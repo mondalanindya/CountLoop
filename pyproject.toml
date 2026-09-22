@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "countloop"
+version = "1.0.0"
+description = "CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance (TMLR 2026)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Anindya Mondal"},
+    {name = "Sauradip Nag"},
+    {name = "Ayan Banerjee"},
+    {name = "Josep Llados"},
+    {name = "Xiatian Zhu"},
+    {name = "Anjan Dutta"}
+]
+keywords = [
+    "text-to-image",
+    "diffusion-models",
+    "object-counting",
+    "vlm-agents",
+    "stable-diffusion-xl",
+    "agentic-ai",
+    "layout-to-image"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Multimedia :: Graphics",
+]
+
+dependencies = [
+    "pydantic>=2.0.0",
+    "numpy>=1.24.0",
+    "pillow>=9.5.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.22.0",
+    "requests>=2.28.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "httpx>=0.24.0",
+]
+gpu = [
+    "torch>=2.1.0",
+    "torchvision>=0.16.0",
+    "diffusers>=0.28.0",
+    "transformers>=4.40.0",
+    "accelerate>=0.28.0",
+    "safetensors>=0.4.0",
+]
+
+[project.scripts]
+countloop = "countloop.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["countloop*", "benchmarks*"]

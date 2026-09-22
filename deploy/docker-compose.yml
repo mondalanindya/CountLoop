@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  countloop:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: countloop-service
+    ports:
+      - "8000:8000"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - PYTHONUNBUFFERED=1
+      - HUGGINGFACE_HUB_CACHE=/root/.cache/huggingface
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    volumes:
+      - ../outputs:/app/outputs
+      - hf_cache:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+
+volumes:
+  hf_cache:
