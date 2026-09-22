@@ -14,6 +14,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 from countloop.attention import (
+    CountLoopAttentionProcessor,
     apply_attention_masking,
     create_bbox_mask,
     cumulative_latent_composition,
@@ -34,6 +35,7 @@ class CountLoopGenerator:
         # Maps instance_id -> cached masked latent representation
         self.instance_feature_cache: Dict[str, np.ndarray] = {}
         self.global_cumulative_latent: Optional[np.ndarray] = None
+        self.attn_processors: Dict[str, CountLoopAttentionProcessor] = {}
 
         if self.is_gpu_available and not self.config.use_mock_engine:
             self._init_diffusers_pipeline()
@@ -64,6 +66,19 @@ class CountLoopGenerator:
                 torch_dtype=torch_dtype,
                 use_safetensors=True,
             ).to(self.config.device)
+
+            # Install CountLoop custom attention processors on U-Net
+            processors = {}
+            for name in self.pipe.unet.attn_processors.keys():
+                is_cross = name.endswith("attn2.processor")
+                is_mid_or_up1 = ("mid_block" in name) or ("up_blocks.0" in name)
+                processors[name] = CountLoopAttentionProcessor(
+                    block_name=name,
+                    is_cross_attention=is_cross,
+                    is_middle_or_first_up_block=is_mid_or_up1,
+                )
+            self.pipe.unet.set_attn_processor(processors)
+            self.attn_processors = processors
 
         except Exception as e:
             print(f"[Generator] Warning: Could not initialize GPU diffusers ({e}). Falling back to simulation engine.")
@@ -121,8 +136,14 @@ class CountLoopGenerator:
             else:
                 # 1. Layout-aligned spatial mask
                 bbox_mask = create_bbox_mask(node.bbox_xyxy, latent_h, latent_w)
-                # 2. Shape-aware refinement
+                # 2. Shape-aware refinement (Dahary et al., 2024)
                 refined_mask = self_segmentation_refinement(bbox_mask)
+
+                # Set active mask on U-Net cross-attention processors
+                for proc in self.attn_processors.values():
+                    if proc.is_cross_attention:
+                        proc.set_active_mask(refined_mask)
+
                 # 3. Simulate per-instance masked feature
                 # (In full GLIGEN: encoded grounding token + cross-attention output)
                 np.random.seed(hash(node.id) % 2**32)

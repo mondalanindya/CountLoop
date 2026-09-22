@@ -602,3 +602,25 @@ tr.ours-row:hover {
         gap: 8px;
     }
 }
+
+/* Announcement Banner */
+.notice-section {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.announcement-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #e8f0fe;
+    color: #1967d2;
+    border: 1px solid #c2e7ff;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 0.98rem;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}

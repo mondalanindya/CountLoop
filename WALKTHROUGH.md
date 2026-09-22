@@ -3,6 +3,9 @@
 We have built, verified, and packaged a complete, production-ready, error-free implementation of **CountLoop** based on the TMLR 2026 paper:
 *"CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance"* (Mondal et al., 2026).
 
+> [!IMPORTANT]
+> 📢 **Release Status**: *This codebase is currently under preparation and will be fully released following publication.*
+
 ---
 
 ## 🏗️ Architecture & Component Overview

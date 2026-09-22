@@ -19,7 +19,7 @@ from countloop.types import GenerationResult, PlanningGraph
 
 app = FastAPI(
     title="CountLoop API",
-    description="Training-Free High-Instance Image Generation via Iterative Agent Guidance (TMLR 2026)",
+    description="Training-Free High-Instance Image Generation via Iterative Agent Guidance (TMLR 2026). Notice: Codebase is currently under preparation and will be fully released following publication.",
     version="1.0.0",
 )
 
@@ -110,6 +110,9 @@ def serve_ui():
     <header>
       <h1>CountLoop: High-Instance Image Generation</h1>
       <p>Training-Free Iterative Agent Guidance (Transactions on Machine Learning Research, 2026)</p>
+      <div style="margin-top: 10px; display: inline-block; padding: 6px 14px; background: rgba(56, 189, 248, 0.12); border: 1px solid #0284c7; border-radius: 6px; color: #38bdf8; font-size: 13px;">
+        📢 <b>Notice:</b> The codebase is currently under preparation and will be fully released following publication.
+      </div>
     </header>
     <div class="grid">
       <div class="card">

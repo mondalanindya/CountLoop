@@ -1,4 +1,7 @@
-"""CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance (TMLR 2026)."""
+"""CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance (TMLR 2026).
+
+Notice: The codebase is currently under preparation and will be fully released following publication.
+"""
 
 from countloop.config import CountLoopConfig
 from countloop.critic import CriticVLM
@@ -18,6 +21,7 @@ from countloop.types import (
 )
 
 __version__ = "1.0.0"
+__status__ = "Under preparation; full public release following publication"
 
 __all__ = [
     "CountLoopPipeline",

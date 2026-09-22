@@ -77,3 +77,48 @@ def test_instance_visibility_and_occlusion():
 
     assert vis_near > 0
     assert vis_far == 0.0  # Completely covered
+
+
+def test_compute_iom():
+    from countloop.attention import compute_iom
+
+    # Identical masks: IoM = 1.0
+    m1 = np.ones((20, 20), dtype=np.float32)
+    assert compute_iom(m1, m1) == pytest.approx(1.0)
+
+    # Disjoint masks: IoM = 0.0
+    m2 = np.zeros((20, 20), dtype=np.float32)
+    m2[0:5, 0:5] = 1.0
+    m3 = np.zeros((20, 20), dtype=np.float32)
+    m3[10:15, 10:15] = 1.0
+    assert compute_iom(m2, m3) == pytest.approx(0.0)
+
+    # Smaller mask inside larger mask:
+    # A = 5x5 (area 25), B = 10x10 (area 100), intersection = 25
+    # IoM = 25 / min(25, 100) = 1.0
+    m4 = np.zeros((20, 20), dtype=np.float32)
+    m4[5:15, 5:15] = 1.0
+    m5 = np.zeros((20, 20), dtype=np.float32)
+    m5[6:11, 6:11] = 1.0
+    assert compute_iom(m4, m5) == pytest.approx(1.0)
+
+
+def test_countloop_attention_processor():
+    from countloop.attention import CountLoopAttentionProcessor
+
+    proc = CountLoopAttentionProcessor(
+        block_name="mid_block",
+        is_cross_attention=True,
+        is_middle_or_first_up_block=True,
+    )
+    assert proc.is_middle_or_first_up_block is True
+    assert proc.is_cross_attention is True
+
+    # Test setting active mask and reset
+    dummy_mask = np.ones((16, 16), dtype=np.float32)
+    proc.set_active_mask(dummy_mask)
+    assert proc.active_mask is not None
+
+    proc.reset()
+    assert proc.active_mask is None
+    assert proc.cached_query is None
