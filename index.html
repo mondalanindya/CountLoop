@@ -8,11 +8,35 @@
     <meta name="keywords" content="CountLoop, diffusion models, image generation, object counting, VLM, iterative agent, TMLR">
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <title>CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance</title>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.1">
+    <style>
+        .video-container {
+            max-width: 880px;
+            margin: 20px auto 10px auto;
+            width: 100%;
+        }
+        .video-responsive {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 12px;
+            background-color: #0f172a;
+            box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            border: 0;
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
@@ -95,13 +119,13 @@
 
             <div class="section" id="video">
                 <h2>Video Presentation</h2>
-                <div class="video-container">
-                    <div class="video-responsive">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/F9vE5Yakizs?si=AgNgpoj-fWwjeJ3K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                <div class="video-container" style="max-width: 880px; margin: 20px auto 10px auto; width: 100%;">
+                    <div class="video-responsive" style="position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 12px; background-color: #0f172a; box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);">
+                        <iframe src="https://www.youtube.com/embed/F9vE5Yakizs?si=AgNgpoj-fWwjeJ3K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block;"></iframe>
                     </div>
                 </div>
-                <p class="figure-caption text-center" style="margin-top: 14px;">
-                    <b>Presentation Video:</b> Walkthrough of CountLoop explaining training-free high-instance image generation and iterative agent guidance. &nbsp;<a href="https://youtu.be/F9vE5Yakizs?si=AgNgpoj-fWwjeJ3K" target="_blank" style="color: #0b5ed7; text-decoration: none; font-weight: 500;"><i class="fab fa-youtube" style="color: #e50914;"></i> Watch on YouTube <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a>
+                <p class="figure-caption text-center" style="margin-top: 14px; font-size: 0.95rem; color: #4b5563;">
+                    <b>Presentation Video:</b> Walkthrough of CountLoop explaining training-free high-instance image generation and iterative agent guidance. &nbsp;&bull;&nbsp; <a href="https://youtu.be/F9vE5Yakizs?si=AgNgpoj-fWwjeJ3K" target="_blank" style="color: #0b5ed7; text-decoration: none; font-weight: 600;"><i class="fab fa-youtube" style="color: #ff0000;"></i> Watch on YouTube <i class="fas fa-external-link-alt" style="font-size: 0.75em; margin-left: 2px;"></i></a>
                 </p>
             </div>
 
