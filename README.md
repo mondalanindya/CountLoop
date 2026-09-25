@@ -187,8 +187,11 @@ If you find CountLoop useful for your research, please cite:
 ```bibtex
 @article{mondal2026countloop,
   title={CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance},
-  author={Mondal, Anindya and Nag, Sauradip and Banerjee, Ayan and Llad{\'o}s, Josep and Zhu, Xiatian and Dutta, Anjan},
-  journal={Transactions on Machine Learning Research (TMLR)},
-  year={2026}
+  author={Anindya Mondal and Sauradip Nag and Ayan Banerjee and Josep Llados and Xiatian Zhu and Anjan Dutta},
+  journal={Transactions on Machine Learning Research},
+  issn={2835-8856},
+  year={2026},
+  url={https://openreview.net/forum?id=2JxXGhpCP4},
+  note={}
 }
 ```

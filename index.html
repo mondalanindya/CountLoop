@@ -23,7 +23,7 @@
             </div>
             <h1><b>CountLoop: Training-Free High-Instance Image Generation<br>via Iterative Agent Guidance</b></h1>
             <div class="authors">
-                <span><a href="https://mondalanindya.github.io/" target="_blank">Anindya Mondal<sup>1,*</sup></a></span>
+                <span><a href="https://mondalanindya.github.io/" target="_blank">Anindya Mondal<sup>1</sup></a></span>
                 <span><a href="https://scholar.google.co.uk/citations?user=hlkMCO4AAAAJ&hl" target="_blank">Sauradip Nag<sup>2,&dagger;</sup></a></span>
                 <span><a href="https://ayanban011.github.io/" target="_blank">Ayan Banerjee<sup>3,&dagger;</sup></a></span>
                 <span><a href="https://scholar.google.co.uk/citations?user=92pWl-AAAAAJ&hl" target="_blank">Josep Llad&oacute;s<sup>3</sup></a></span>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="author-notes">
-                <span><sup>*</sup>Correspondence: <a href="mailto:a.mondal@surrey.ac.uk">a.mondal@surrey.ac.uk</a>, <a href="mailto:anjan.dutta@surrey.ac.uk">anjan.dutta@surrey.ac.uk</a></span>
+                <span><sup>*</sup>Correspondence: <a href="mailto:anjan.dutta@surrey.ac.uk">anjan.dutta@surrey.ac.uk</a></span>
                 <span>&bull;</span>
                 <span><sup>&dagger;</sup>Equal Contribution</span>
             </div>
@@ -50,6 +50,10 @@
                 <span class="link-sep">|</span>
                 <a href="https://arxiv.org/pdf/2508.16644" target="_blank" class="lnk">
                     <i class="fas fa-file-pdf"></i> arXiv PDF
+                </a>
+                <span class="link-sep">|</span>
+                <a href="#video" class="lnk">
+                    <i class="fab fa-youtube"></i> Video
                 </a>
                 <span class="link-sep">|</span>
                 <a href="https://huggingface.co/datasets/anindyamondal/COUNTLOOP" target="_blank" class="lnk">
@@ -87,6 +91,18 @@
             <div class="section">
                 <h2>Abstract</h2>
                 <p class="text-justify">Diffusion models excel at photorealistic synthesis but struggle with object count fidelity, especially in high-density settings. We introduce <b>CountLoop</b>, a training-free framework that achieves structured instance and count control through iterative, structured feedback. Our method alternates between synthesis and evaluation: a VLM-based planner generates structured scene layouts, while a VLM-based critic provides explicit feedback on object counts, spatial arrangements, and visual quality to refine the layout iteratively. Instance-driven attention masking and cumulative attention composition further prevent semantic leakage, ensuring clear object separation even in densely occluded scenes. Evaluations on COCO-Count, T2I-CompBench, and two newly introduced high instance benchmarks show that CountLoop reduces counting error by up to 57% and achieves the highest or comparable spatial quality scores across all benchmarks, while maintaining photorealism.</p>
+            </div>
+
+            <div class="section" id="video">
+                <h2>Video Presentation</h2>
+                <div class="video-container">
+                    <div class="video-responsive">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/F9vE5Yakizs?si=AgNgpoj-fWwjeJ3K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>
+                <p class="figure-caption text-center" style="margin-top: 14px;">
+                    <b>Presentation Video:</b> Walkthrough of CountLoop explaining training-free high-instance image generation and iterative agent guidance. &nbsp;<a href="https://youtu.be/F9vE5Yakizs?si=AgNgpoj-fWwjeJ3K" target="_blank" style="color: #0b5ed7; text-decoration: none; font-weight: 500;"><i class="fab fa-youtube" style="color: #e50914;"></i> Watch on YouTube <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a>
+                </p>
             </div>
 
             <div class="section">
@@ -470,10 +486,13 @@
                             <i class="fas fa-copy"></i> Copy BibTeX
                         </button>
                         <pre><code id="bibtexCode">@article{mondal2026countloop,
-  title   = {CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance},
-  author  = {Mondal, Anindya and Nag, Sauradip and Banerjee, Ayan and Llados, Josep and Zhu, Xiatian and Dutta, Anjan},
-  journal = {Transactions on Machine Learning Research (TMLR)},
-  year    = {2026}
+  title={CountLoop: Training-Free High-Instance Image Generation via Iterative Agent Guidance},
+  author={Anindya Mondal and Sauradip Nag and Ayan Banerjee and Josep Llados and Xiatian Zhu and Anjan Dutta},
+  journal={Transactions on Machine Learning Research},
+  issn={2835-8856},
+  year={2026},
+  url={https://openreview.net/forum?id=2JxXGhpCP4},
+  note={}
 }</code></pre>
                     </div>
                 </div>
@@ -488,7 +507,7 @@
             </div>
 
             <div class="section footer-section">
-                <p class="footer-note">Contact: <a href="mailto:a.mondal@surrey.ac.uk">a.mondal@surrey.ac.uk</a> &nbsp;|&nbsp; <a href="mailto:anjan.dutta@surrey.ac.uk">anjan.dutta@surrey.ac.uk</a> &nbsp;|&nbsp; <a href="https://github.com/mondalanindya/CountLoop/" target="_blank">GitHub</a></p>
+                <p class="footer-note">Contact: <a href="mailto:anjan.dutta@surrey.ac.uk">anjan.dutta@surrey.ac.uk</a> &nbsp;|&nbsp; <a href="https://github.com/mondalanindya/CountLoop/" target="_blank">GitHub</a></p>
                 <p class="footer-note">&copy; 2026 CountLoop Project &bull; Transactions on Machine Learning Research (TMLR)</p>
             </div>
         </div>
